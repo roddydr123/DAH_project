@@ -26,5 +26,6 @@ class Measurement():
                 return self.convert(F)
 
 
-meas = Measurement()
-print(meas.get_temp())
+if __name__=="__main__":
+        meas = Measurement()
+        print(meas.get_temp())
