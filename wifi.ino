@@ -69,7 +69,7 @@ void setup(void)
 
   server.on("/humidity", [](){  // if you add this subdirectory to your webserver call, you get text below :)
     gettemperature();           // read sensor
-    webString="Humidity: "+String((int)humidity)+"%";
+    webString="Humidity: "+String((int)humidity)+" %";
     server.send(200, "text/plain", webString);               // send to someones browser when asked
   });
   
