@@ -6,9 +6,13 @@ class Measurement():
                 pass
 
         def get(self, value):
-                with urllib.request.urlopen(f'http://192.168.0.15/{value}') as response:
+                with urllib.request.urlopen(f'http://192.168.0.10/{value}') as response:
                         html = response.read()
-                number = int(html.split()[1])
+                result_string = html.split()
+                if result_string[-1] == "%":
+                        number = result_string[:-1]
+                else:
+                        number = result_string
                 return number
 
         def convert(self, fahrenheit):
