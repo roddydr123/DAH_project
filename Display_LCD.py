@@ -21,7 +21,7 @@ lcd.create_char(7, [31, 17, 21, 21, 21, 21, 17, 31])
 # Show some basic colors.
 lcd.set_color(1.0, 0.0, 0.0)
 lcd.clear()
-lcd.message('RED \x01')
+lcd.message('RED \x01 \x02')
 time.sleep(3.0)
 
 lcd.set_color(0.0, 1.0, 0.0)
