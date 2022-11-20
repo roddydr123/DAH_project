@@ -21,6 +21,9 @@ class Measurement():
                 F = self.get('temp')
                 return self.convert(F)
 
+        def get_light_level(self):
+                return self.get('light_level')
+
         def get_temp_F(self):
                 return self.get('temp')
 

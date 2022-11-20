@@ -10,7 +10,6 @@
 #include <DHT.h>
 #define DHTTYPE DHT22
 #define DHTPIN  2
-#define LIGHTPIN 4
 
 const char* ssid     = "DAH-local-wifi";
 const char* password = "AbbeyRoadAlbum";
@@ -104,7 +103,7 @@ void gettemperature() {
     // Sensor readings may also be up to 2 seconds 'old' (it's a very slow sensor)
     humidity = dht.readHumidity();          // Read humidity (percent)
     temp_f = dht.readTemperature(true);     // Read temperature as Fahrenheit
-    light_level = readAnalog(LIGHTPIN)
+    light_level = analogRead(A0)
     // Check if any reads failed and exit early (to try again).
     if (isnan(humidity) || isnan(temp_f)) {
       Serial.println("Failed to read from DHT sensor!");
