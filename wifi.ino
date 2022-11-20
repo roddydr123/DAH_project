@@ -10,6 +10,7 @@
 #include <DHT.h>
 #define DHTTYPE DHT22
 #define DHTPIN  2
+#define LIGHTPIN 4
 
 const char* ssid     = "DAH-local-wifi";
 const char* password = "AbbeyRoadAlbum";
@@ -26,7 +27,7 @@ ESP8266WebServer server(80);
 // This is for the ESP8266 processor on ESP-01 
 DHT dht(DHTPIN, DHTTYPE, 11); // 11 works fine for ESP8266
  
-float humidity, temp_f;  // Values read from sensor
+float humidity, temp_f, light_level;  // Values read from sensor
 String webString="";     // String to display
 // Generally, you should use "unsigned long" for variables that hold time
 unsigned long previousMillis = 0;        // will store last temp was read
@@ -72,6 +73,12 @@ void setup(void)
     webString="Humidity: "+String((int)humidity)+" %";
     server.send(200, "text/plain", webString);               // send to someones browser when asked
   });
+
+  server.on("/light_level", [](){  // if you add this subdirectory to your webserver call, you get text below :)
+    gettemperature();           // read sensor
+    webString="Light-level: "+String((int)light_level);
+    server.send(200, "text/plain", webString);               // send to someones browser when asked
+  });
   
   server.begin();
   Serial.println("HTTP server started");
@@ -97,9 +104,14 @@ void gettemperature() {
     // Sensor readings may also be up to 2 seconds 'old' (it's a very slow sensor)
     humidity = dht.readHumidity();          // Read humidity (percent)
     temp_f = dht.readTemperature(true);     // Read temperature as Fahrenheit
+    light_level = readAnalog(LIGHTPIN)
     // Check if any reads failed and exit early (to try again).
     if (isnan(humidity) || isnan(temp_f)) {
       Serial.println("Failed to read from DHT sensor!");
+      return;
+    }
+    if (isnan(light_level)) {
+      Serial.println("Failed to read from light sensor!");
       return;
     }
   }
