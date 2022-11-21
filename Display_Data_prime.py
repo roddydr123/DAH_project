@@ -19,7 +19,7 @@ humidity_data = []
 light_data = []
 
 
-def buttonPress(lcd):
+def buttonPress(lcd, temp, humidity, light):
 
     # create sun
     lcd.create_char(1, [17,11,7,31,7,15,19,5])
@@ -33,13 +33,27 @@ def buttonPress(lcd):
     lcd.create_char(5, [7,12,24,24,24,24,12,7])
     lcd.create_char(6, [0,2,0,0,0,8,1,0])
 
+    # setting the custom image for select button
+    if (temp > 20 and light > 280):
+        # picture of sun for hot and sunny weather
+        select_button = (LCD.SELECT, '\x01\x02', (1,1,0))
+
+    elif (temp < 20 and light <280):
+        # picture of moon for cold and dark weather
+        select_button = (LCD.SELECT, '\x05\x06', (0,0,1))
+
+    else:
+        # picture of cloud for warm and dark weather
+        select_button = (LCD.SELECT, '\x03\x04', (1,1,1))
+
+
     # setting buttons
     # Make list of button value, text, and backlight color.
-    buttons = ( (LCD.SELECT, '\x01\x02', (1,1,1)),
-              (LCD.LEFT,   'Left'  , (1,0,0)),
-              (LCD.UP,     'Up'    , (0,0,1)),
-              (LCD.DOWN,   'Down'  , (0,1,0)),
-              (LCD.RIGHT,  'Right' , (1,0,1)) )
+    buttons = ( (select_button),
+              (LCD.LEFT,   'Left Invalid Button'  , (1,0,0)),
+              (LCD.UP,     'Up Invalid Button'    , (0,0,1)),
+              (LCD.DOWN,   'Down Invalid Button'  , (0,1,0)),
+              (LCD.RIGHT,  'Right Invalid Button' , (1,0,1)) )
 
     # setting time period to loop over to check buttons
     seconds = 2
@@ -73,7 +87,9 @@ while True:
     light_data.append(light)
 
     # skip loop initally as theres not enough data to determine std
-    if (len(temp_data)==1 or len(humidity_data)==1): continue 
+    if (len(temp_data)==1 or len(humidity_data)==1):
+        print('Press Ctrl-C to quit.')
+        continue 
 
     # setting LCD color
     lcd.set_color(1,0,0)
@@ -84,7 +100,7 @@ while True:
     lcd.clear()
 
     # Display humidity Data to LCD screen for 3s
-    lcd.message(f'Humidity: {np.round(humidity, 2)}C')
+    lcd.message(f'Humidity: {np.round(humidity, 2)}% \n=> Water vapour in the air')
     time.sleep(3.0)  
     lcd.clear()
 
@@ -94,17 +110,12 @@ while True:
     else:
         light_statment = "It is dark"
 
-    lcd.message(f'Light Level: {np.round(light, 2)} \n{light_statment}')
+    lcd.message(f'Light Level: {np.round((light/1024)*100, 2)}% \n{light_statment}')
     time.sleep(3.0)  
     lcd.clear()
-
 
     # display picture that corresponds to teh overall weather
-    buttonPress(lcd)
-
-    time.sleep(3.0)  
+    buttonPress(lcd, temp, humidity, light)
+    time.sleep(2.0)  
     lcd.clear()
 
-
-    # terminal command
-    print('Press Ctrl-C to quit.')
