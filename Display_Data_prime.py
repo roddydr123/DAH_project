@@ -21,18 +21,17 @@ light_data = []
 
 def buttonPress(lcd):
 
-     # create sun custom characters
-    lcd.create_char(1, [1,3,7,15,15,7,3,1])
-    lcd.create_char(2, [16,24,28,30,30,28,24,16])
+    # create sun
+    lcd.create_char(1, [17,11,7,31,7,15,19,5])
+    lcd.create_char(2, [20,25,30,28,31,28,26,17])
 
-    #
-    lcd.create_char(3, [0, 14, 21, 23, 17, 14, 0, 0])
-    lcd.create_char(4, [31, 17, 10, 4, 10, 17, 31, 0])
+    # create cloud
+    lcd.create_char(3, [0,3,3,15,31,31,31,15])
+    lcd.create_char(4, [0,24,24,30,31,31,31,30])
 
-    # 
-    lcd.create_char(5, [8, 12, 10, 9, 10, 12, 8, 0])
-    lcd.create_char(6, [2, 6, 10, 18, 10, 6, 2, 0])
-    lcd.create_char(7, [31, 17, 21, 21, 21, 21, 17, 31])
+    # create moon and stars
+    lcd.create_char(5, [7,12,24,24,24,24,12,7])
+    lcd.create_char(6, [0,2,0,0,0,8,1,0])
 
     # setting buttons
     # Make list of button value, text, and backlight color.
