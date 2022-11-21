@@ -77,7 +77,7 @@ while True:
     lcd.set_color(1,0,0)
 
     # Display Temp Data to LCD screen for 3s
-    lcd.message(f'Temp: {np.round(temp, 2)}C \nStdv: {np.r(temp)}%')
+    lcd.message(f'Temp: {np.round(temp, 2)}C \nStdv: {np.round(temp)}%')
     buttonPress(lcd)
     time.sleep(3.0)  
     lcd.clear()
