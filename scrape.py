@@ -6,7 +6,7 @@ class Measurement():
                 pass
 
         def get(self, value):
-                with urllib.request.urlopen(f'http://192.168.0.10/{value}') as response:
+                with urllib.request.urlopen(f'http://192.168.0.4/{value}') as response:
                         html = response.read().decode("utf-8")
                 number_string = html.split()[1]
                 return int(number_string)
