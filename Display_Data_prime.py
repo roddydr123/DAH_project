@@ -22,8 +22,8 @@ light_data = []
 def buttonPress(lcd):
 
      # create sun custom characters
-    lcd.create_char(1, [5,3,7,31,7,3,5])
-    lcd.create_char(2, [18,28,24,31,24,28,18])
+    lcd.create_char(1, [1,3,7,7,7,3,1,0])
+    lcd.create_char(2, [16,24,28,28,28,28,24,16])
 
     lcd.create_char(3, [0, 14, 21, 23, 17, 14, 0, 0])
     lcd.create_char(4, [31, 17, 10, 4, 10, 17, 31, 0])
