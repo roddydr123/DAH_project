@@ -2,6 +2,7 @@
 # Example using a character LCD plate.
 import time
 import Adafruit_CharLCD as LCD
+
 from scrape import Measurement
 import numpy as np
 
@@ -10,6 +11,7 @@ import numpy as np
 lcd = LCD.Adafruit_CharLCDPlate()
 
 # class for scraping data from server
+
 meas = Measurement()
 
 # custom button inputs
@@ -78,4 +80,3 @@ while True:
                 lcd.clear()
                 lcd.message(button[1])
                 lcd.set_color(button[2][0], button[2][1], button[2][2])
-
