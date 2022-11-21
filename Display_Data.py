@@ -11,7 +11,6 @@ import numpy as np
 lcd = LCD.Adafruit_CharLCDPlate()
 
 # class for scraping data from server
-
 meas = Measurement()
 
 # custom button inputs
@@ -30,6 +29,7 @@ while True:
     # getting temp and humidity data from server
     temp = meas.get_temp()
     humidity = meas.get_humidity()
+
     # skip loop initally as theres not enough data to determine std
     if (len(temp_data)==1 or len(humidity_data)==1): continue 
 
@@ -37,16 +37,12 @@ while True:
     # setting LCD color
     lcd.set_color(1,0,0)
 
+    # Display Data to LCD screen for 3s
     lcd.message(f'Temp: {np.round(temp, 2)}C \nHumidity: {np.round(humidity, 2)}%')
-
-
-    # setting display time on LCD
-    time.sleep(3.0)
-    
-    # clearing display    
+    time.sleep(3.0)  
     lcd.clear()
 
-    # telling user to press buttons
+    # telling user to press buttons for 3s
     lcd.message('Press buttons...')
     time.sleep(3.0)
     lcd.clear()
@@ -59,12 +55,12 @@ while True:
 
     while True:
         test = 0
-	if time.time() > timeout:
+    if time.time() > timeout:
 	    break
-	test = test - 1
+    test = test - 1
 	# Loop through each button and check if it is pressed.
-    	for button in buttons:
-            if lcd.is_pressed(button[0]):
+    for button in buttons:
+        if lcd.is_pressed(button[0]):
             # Button is pressed, change the message and backlight.
             lcd.clear()
             lcd.message(button[1])
