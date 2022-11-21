@@ -34,11 +34,11 @@ def buttonPress(lcd, temp, humidity, light):
     lcd.create_char(6, [0,2,0,0,0,8,1,0])
 
     # setting the custom image for select button
-    if (temp > 20 and light > 280):
+    if (temp > 20 and light < 500):
         # picture of sun for hot and sunny weather
         select_button = (LCD.SELECT, 'Sunny =>\x01\x02', (1,1,0))
 
-    elif (temp < 20 and light <280):
+    elif (temp < 20 and light > 500):
         # picture of moon for cold and dark weather
         select_button = (LCD.SELECT, 'Dark & Cold =>\x05\x06', (0,0,1))
 
@@ -105,17 +105,17 @@ while True:
     lcd.clear()
 
     # Display current light level Data to LCD screen for 3s
-    if (light_data[-1] < 280):
+    if (light_data[-1] < 500):
         light_statment = "It is bright"
     else:
         light_statment = "It is dark"
 
-    lcd.message(f'Light lvl: {np.round((light/1024)*100, 0)}% \n{light_statment}')
+    lcd.message(f'Light lvl: {np.round((100-(light/1024)*100), 0)}% \n{light_statment}')
     time.sleep(3.0)  
     lcd.clear()
 
     # display picture that corresponds to the overall weather
-    lcd.message(f'Press select button to see weather + symbol')
+    lcd.message(f'Press select \nbutton for weather')
     buttonPress(lcd, temp, humidity, light)
     time.sleep(2.0)  
     lcd.clear()
