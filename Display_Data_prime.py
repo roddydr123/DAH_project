@@ -115,7 +115,7 @@ while True:
     lcd.clear()
 
     # display picture that corresponds to the overall weather
-    lcd.message(f'Press select \nbutton for weather')
+    lcd.message(f'Press select \nfor weather')
     buttonPress(lcd, temp, humidity, light)
     time.sleep(2.0)  
     lcd.clear()
