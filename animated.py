@@ -12,10 +12,10 @@ def updatePlot(i, meas, plotFigure, temps, times, start):
 
         plotFigure.clear()
 
-        plt.scatter(times, temps)
-        plt.title("Temperature vs time")
+        plt.plot(times, temps)
+        plt.title("Temperature vs Time")
         plt.xlabel("Time after start (s)")
-        plt.ylabel("Temperature (degrees Celsius)")
+        plt.ylabel("Temperature ($\degree$C)")
 
 
 def main():
