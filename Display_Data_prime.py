@@ -22,11 +22,14 @@ light_data = []
 def buttonPress(lcd):
 
      # create sun custom characters
-    lcd.create_char(1, [1,3,7,7,7,3,1,0])
-    lcd.create_char(2, [16,24,28,28,28,28,24,16])
+    lcd.create_char(1, [1,3,7,15,15,7,3,1])
+    lcd.create_char(2, [16,24,28,30,30,28,24,16])
 
+    #
     lcd.create_char(3, [0, 14, 21, 23, 17, 14, 0, 0])
     lcd.create_char(4, [31, 17, 10, 4, 10, 17, 31, 0])
+
+    # 
     lcd.create_char(5, [8, 12, 10, 9, 10, 12, 8, 0])
     lcd.create_char(6, [2, 6, 10, 18, 10, 6, 2, 0])
     lcd.create_char(7, [31, 17, 21, 21, 21, 21, 17, 31])
@@ -78,24 +81,28 @@ while True:
 
     # Display Temp Data to LCD screen for 3s
     lcd.message(f'Temp: {np.round(temp, 2)}C \nStdv: {np.round(temp)}%')
-    buttonPress(lcd)
     time.sleep(3.0)  
     lcd.clear()
 
     # Display humidity Data to LCD screen for 3s
     lcd.message(f'Humidity: {np.round(humidity, 2)}C')
-    buttonPress(lcd)
     time.sleep(3.0)  
     lcd.clear()
 
     # Display current light level Data to LCD screen for 3s
-    if (light[-1] < 280):
+    if (light_data[-1] < 280):
         light_statment = "It is bright"
     else:
         light_statment = "It is dark"
 
     lcd.message(f'Light Level: {np.round(light, 2)} \n{light_statment}')
+    time.sleep(3.0)  
+    lcd.clear()
+
+
+    # display picture that corresponds to teh overall weather
     buttonPress(lcd)
+
     time.sleep(3.0)  
     lcd.clear()
 
