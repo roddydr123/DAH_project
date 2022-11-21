@@ -29,6 +29,12 @@ while True:
     # getting temp and humidity data from server
     temp = meas.get_temp()
     humidity = meas.get_humidity()
+<<<<<<< Updated upstream
+=======
+    
+    # skip loop initally as theres not enough data to determine std
+    if (len(temp_data)==1 or len(humidity_data)==1): continue 
+>>>>>>> Stashed changes
 
     # setting LCD color
     lcd.set_color(colors_ls[i])
