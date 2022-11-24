@@ -2,29 +2,34 @@ from scrape import Measurement
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 import datetime
+import sys
 
 
-def updatePlot(i, meas, plotFigure, temps, times, start):
+def updatePlot(i, meas, plotFigure, data_list, times, start, variable):
         now = datetime.datetime.now()
-        temps.append(meas.get_temp())
+        if variable == "light":
+                data_list.append(meas.get_light_level())
+        elif variable == "temp":
+                data_list.append(meas.get_temp())
         diff = now - start
         times.append(diff.total_seconds())
 
         plotFigure.clear()
 
         plt.plot(times, temps)
-        plt.title("Temperature vs Time")
+        plt.title(f"{variable} vs Time")
         plt.xlabel("Time after start (s)")
-        plt.ylabel("Temperature ($\degree$C)")
+        plt.ylabel(f"{variable}")
 
 
 def main():
         start = datetime.datetime.now()
+        variable = sys.argv[1]
         plotFigure = plt.figure()
         meas = Measurement()
-        temps = []
+        data = []
         times = []
-        ani = FuncAnimation(plotFigure, updatePlot, interval=10, fargs=(meas, plotFigure, temps, times, start))
+        ani = FuncAnimation(plotFigure, updatePlot, interval=10, fargs=(meas, plotFigure, data, times, start, variable))
         plt.show()
 
 
