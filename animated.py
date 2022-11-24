@@ -11,12 +11,14 @@ def updatePlot(i, meas, plotFigure, data_list, times, start, variable):
                 data_list.append(meas.get_light_level())
         elif variable == "temp":
                 data_list.append(meas.get_temp())
+        else:
+                raise InputError("didnt understand argv")
         diff = now - start
         times.append(diff.total_seconds())
 
         plotFigure.clear()
 
-        plt.plot(times, temps)
+        plt.plot(times, data_list)
         plt.title(f"{variable} vs Time")
         plt.xlabel("Time after start (s)")
         plt.ylabel(f"{variable}")
