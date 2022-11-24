@@ -8,9 +8,13 @@ import sys
 def updatePlot(i, meas, plotFigure, data_list, times, start, variable):
         now = datetime.datetime.now()
         if variable == "light":
-                data_list.append(meas.get_light_level())
+                data_list.append((1024 - meas.get_light_level()) * 100 / 1024)
+                label = "Light level (% of maximum)"
+                title = "Light level vs Time"
         elif variable == "temp":
                 data_list.append(meas.get_temp())
+                label = "Temperature ($\degree$C)"
+                title = "Temperature vs Time"
         else:
                 raise InputError("didnt understand argv")
         diff = now - start
@@ -19,9 +23,9 @@ def updatePlot(i, meas, plotFigure, data_list, times, start, variable):
         plotFigure.clear()
 
         plt.plot(times, data_list)
-        plt.title(f"{variable} vs Time")
+        plt.title(title)
         plt.xlabel("Time after start (s)")
-        plt.ylabel(f"{variable}")
+        plt.ylabel(label)
 
 
 def main():
